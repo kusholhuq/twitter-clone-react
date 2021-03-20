@@ -1,18 +1,18 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import "../styles/Feed.css";
 import Tweetbox from "../components/Tweetbox";
 import Post from "../components/Post";
-import ddb from "../firebase";
 import db from '../firebase';
+import FlipMove from 'react-flip-move';
 
-function Feed(){
+function Feed() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-      db.collection('posts').onSnapshot(snapshot => (
-        setPosts(snapshot.docs.map(doc => doc.data()))
-      ))
-    },
+    db.collection('posts').onSnapshot(snapshot => (
+      setPosts(snapshot.docs.map(doc => doc.data()))
+    ))
+  },
     []
   );
 
@@ -22,19 +22,20 @@ function Feed(){
         <h2>Home</h2>
       </div>
 
-      <Tweetbox/>
-
-      {posts.map(post => (
-        <Post
-          displayName={post.displayName}
-          username={post.username}
-          verified={post.verified}
-          text={post.text}
-          avatar={post.avatar}
-          image={post.image}
-        />
-      ))}
-
+      <Tweetbox />
+      <FlipMove>
+        {posts.map(post => (
+          <Post
+            key={post.text}
+            displayName={post.displayName}
+            username={post.username}
+            verified={post.verified}
+            text={post.text}
+            avatar={post.avatar}
+            image={post.image}
+          />
+        ))}
+      </FlipMove>
     </div>
   )
 }
