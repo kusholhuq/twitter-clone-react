@@ -43,3 +43,8 @@
 .post__avatar {
   padding: 20px;
 }
+
+img {
+  max-width: 25vw;
+  height: auto;
+}
